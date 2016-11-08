@@ -269,24 +269,13 @@ void qemu_init_exec_dir(const char *argv0)
 #if defined(__linux__)
     {
         int len;
-        len = readlink("/proc/self/exe", buf, sizeof(buf) - 1);
+        len = readlink("/proc/self/exe", buf, sizeof(buf) - 1);//"/proc/self/exe" 실행 path 리턴.
         if (len > 0) {
             buf[len] = 0;
             p = buf;
         }
     }
 #elif defined(__FreeBSD__)
-    {
-        static int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_PATHNAME, -1};
-        size_t len = sizeof(buf) - 1;
-
-        *buf = '\0';
-        if (!sysctl(mib, ARRAY_SIZE(mib), buf, &len, NULL, 0) &&
-            *buf) {
-            buf[sizeof(buf) - 1] = '\0';
-            p = buf;
-        }
-    }
 #endif
     /* If we don't have any way of figuring out the actual executable
        location then try argv[0].  */

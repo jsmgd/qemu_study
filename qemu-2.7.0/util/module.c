@@ -94,7 +94,7 @@ void module_call_init(module_init_type type)
     ModuleTypeList *l;
     ModuleEntry *e;
 
-    module_load(type);
+    module_load(type);//BLOCK만.
     l = find_type(type);
 
     QTAILQ_FOREACH(e, l, node) {

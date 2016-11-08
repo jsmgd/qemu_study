@@ -2965,10 +2965,12 @@ int main(int argc, char **argv, char **envp)
     Error *err = NULL;
     bool list_data_dirs = false;
 
-    qemu_init_cpu_loop();
-    qemu_mutex_lock_iothread();
+    qemu_init_cpu_loop();//FOMO : CPU signal, condtion, global mutex 초기화
+    qemu_mutex_lock_iothread();//FOMO : global mutex lock.
 
-    atexit(qemu_run_exit_notifiers);
+    atexit(qemu_run_exit_notifiers);//FOMO : 프로그램 종료시 자동으로 호출하고 싶은 함수가 있다면 atexit()를 이용하여 종료 핸들러 함수를 등록하면 됩니다. 
+	
+
     error_set_progname(argv[0]);
     qemu_init_exec_dir(argv[0]);
 

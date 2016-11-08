@@ -889,7 +889,7 @@ static void qemu_kvm_init_cpu_signals(CPUState *cpu)
 
 static QemuMutex qemu_global_mutex;
 static QemuCond qemu_io_proceeded_cond;
-static unsigned iothread_requesting_mutex;
+static unsigned iothread_requesting_mutex;//FOMO : mutex lock
 
 static QemuThread io_thread;
 
